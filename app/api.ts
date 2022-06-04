@@ -1,7 +1,21 @@
+import getConfig from 'next/config'
+import mockData from '../public/mock.json'
+
+const { publicRuntimeConfig } = getConfig()
+const { apiUrl } = publicRuntimeConfig
+type Opts = RequestInit & {
+  params?: Record<string, string> | null
+}
+
 export async function client<T>(
   endpoint: string,
-  { body, ...customConfig }: RequestInit = {}
+  { body, params, ...customConfig }: Opts = {}
 ) {
+  return new Promise((res) => {
+    setTimeout(() => {
+      return res({ data: mockData })
+    }, 1000)
+  })
   const headers = { 'Content-Type': 'application/json' }
 
   const config: RequestInit = {
@@ -16,8 +30,8 @@ export async function client<T>(
   if (body) {
     config.body = JSON.stringify(body)
   }
-
-  const response = await fetch(`${process.env.API_URL}/${endpoint}`, config)
+  const urlParams = params ? `?${new URLSearchParams(params)}` : ''
+  const response = await fetch(`${apiUrl}${endpoint}${urlParams}`, config)
   const data: T = await response.json()
 
   if (response.ok) {

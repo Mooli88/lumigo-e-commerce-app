@@ -69,7 +69,7 @@ export async function getStaticProps() {
     },
   ]
 
-  // const { data: products } = await client<Product[]>('products')
+  // const { data: products } = await client<Product[]>('/products')
 
   return { props: { products } }
 }
