@@ -57,7 +57,7 @@ export const Product = ({
           <Rating score={rating.rate} count={rating.count} />
         </div>
         <div className='card-actions items-end'>
-          <div className='stat-value text-2xl'>$89.99</div>
+          <div className='stat-value text-2xl'>${price}</div>
 
           <button className='btn btn-primary ml-auto'>Add</button>
         </div>

@@ -4,6 +4,7 @@ import { Products } from 'features/products/Products'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { Sidebar } from 'components/Sidebar'
 
 type HomeProps = {
   products: Product[]
@@ -19,7 +20,9 @@ const Home: NextPage<HomeProps> = ({ products }) => {
       </Head>
 
       <main>
-        <Products products={products} />
+        <Sidebar>
+          <Products products={products} />
+        </Sidebar>
       </main>
     </div>
   )

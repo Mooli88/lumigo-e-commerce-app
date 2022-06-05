@@ -16,7 +16,7 @@ const _Paginator = ({ totalPages, onPageChange }: Props) => {
     const page = index + 1
     const isCurrentPage = `${page}` === currentPage ? 'btn-active' : ''
     return (
-      <Link shallow href={`${pathname}?page=${page}`}>
+      <Link key={page} shallow href={`${pathname}?page=${page}`}>
         <a
           className={`btn ${isCurrentPage}`}
           onClick={() => onPageChange(page)}>

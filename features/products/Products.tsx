@@ -7,11 +7,15 @@ import {
   fetchProducts,
   populateProducts,
   selectProductCount,
-  selectProducts,
   selectProductSlice,
 } from './productSlice'
 import { genListFromNum } from 'utils'
 import { Paginator } from 'components/Paginator'
+import {
+  selectFilteredProducts,
+  selectFilteredProductsByPrice,
+} from 'features/filters/filterSlice'
+import { useSelector } from 'react-redux'
 
 type ProductsProps = Props<{ products: ProductType[] }>
 
@@ -19,12 +23,22 @@ const itemsPlaceholder = genListFromNum(10, (i) => ({ id: i }))
 const MAX_ITEMS_PER_PAGE = 5
 
 export const Products = ({ products }: ProductsProps) => {
-  const productsStore = useAppSelector(selectProductSlice)
+  const productsSlice = useAppSelector(selectProductSlice)
+  const productItems = useAppSelector(selectFilteredProducts)
+  console.log(
+    '🚀 ~ file: Products.tsx ~ line 27 ~ Products ~ productItems',
+    productItems
+  )
   const productCount = useAppSelector(selectProductCount)
   const dispatch = useAppDispatch()
-  const [productOfPage, setProductOfPage] = useState<any>(products)
-  const { items, loading, error } = productsStore
+  const [productOfPage, setProductOfPage] =
+    useState<ProductType[]>(productItems)
+  const { loading, error } = productsSlice
   const currPage = useRef(0)
+
+  useEffect(() => {
+    setProductOfPage(productItems)
+  }, [productItems])
 
   useEffect(() => {
     if (productCount === 0) {
