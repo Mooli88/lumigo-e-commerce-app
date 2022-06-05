@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import { Product } from 'types/product'
 import { ChildrenOnlyProps } from 'types/propType'
-import { removeItem, selectCartItems } from './cartSlice'
+import { removeItem, selectCartItems, selectCartTotal } from './cartSlice'
 
 type Props = {}
 type CartItemProps = {
@@ -74,16 +74,17 @@ const CartItem = ({ product, quantity, onRemove }: CartItemProps) => (
   </tr>
 )
 
-export const Cart = (props: Props) => {
+export const Cart = () => {
   const dispatch = useAppDispatch()
-  const cartSlice = useAppSelector(selectCartItems)
+  const cartItems = useAppSelector(selectCartItems)
+  const cartTotal = useAppSelector(selectCartTotal)
   return (
     <div className='card h-full w-1/3 max-w-md min-w-[480px] bg-base-100 shadow-xl'>
       <div className='card-body'>
         <h2 className='card-title'>Cart</h2>
-        <div>
+        <div className='overflow-y-auto max-h-[50vh]'>
           <CartItems>
-            {cartSlice.map(({ quantity, ...product }) => (
+            {cartItems.map(({ quantity, ...product }) => (
               <CartItem
                 key={product.id}
                 product={product}
@@ -93,9 +94,13 @@ export const Cart = (props: Props) => {
             ))}
           </CartItems>
         </div>
-        <p>Total</p>
-        <div className='card-actions justify-end'>
-          <button className='btn btn-primary'>Checkout</button>
+        <div className='divider'></div>
+        <div className='text-right mb-10'>
+          <h3 className='font-bold'>Total</h3>
+          <div className='text-xl my-2'>${cartTotal}</div>
+        </div>
+        <div className='card-actions justify-end align-end mt-auto'>
+          <button className='btn btn-primary w-full'>Checkout</button>
         </div>
       </div>
     </div>

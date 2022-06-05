@@ -57,11 +57,11 @@ export const Product = ({
       <div className='card-body'>
         <h2 className='card-title'>{title}</h2>
         <p className='h-24 my-2 text-sm overflow-auto'>{description}</p>
-        <div className='my-3'>
+        <div className='my-2'>
           <Rating score={rating.rate} count={rating.count} />
         </div>
         <div className='card-actions items-end'>
-          <div className='stat-value text-2xl'>${price}</div>
+          <div className='stat-value text-xl'>${price}</div>
 
           <button
             className='btn btn-primary ml-auto'
