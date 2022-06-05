@@ -29,7 +29,7 @@ export const filterSlice = createSlice({
       state.byPrice = action.payload
     },
     setFilterByName: (state: FilterState, action: PayloadAction<string>) => {
-      state.byName = action.payload
+      state.byName = action.payload.toLocaleLowerCase()
       state.byPrice = initialState.byPrice
     },
   },
@@ -46,13 +46,13 @@ const filterByPrice = (price: number, { value: filter }: Filter) => {
   }
 }
 
-export const { setFilterByPrice } = filterSlice.actions
+export const { setFilterByPrice, setFilterByName } = filterSlice.actions
 
 export const selectFilterSlice = (state: RootState) => state.filter
 
 const selectFilteredProductsByName = (state: Omit<RootState, 'cart'>) =>
   state.products.items.filter(({ title }) =>
-    title.includes(state.filter.byName)
+    title.toLocaleLowerCase().includes(state.filter.byName)
   )
 
 const selectSlice = createDraftSafeSelector(

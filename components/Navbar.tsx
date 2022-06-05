@@ -1,4 +1,6 @@
+import { Search } from 'features/filters/Search'
 import React from 'react'
+import { Searchbox } from './Searchbox'
 
 type Props = {}
 
@@ -20,6 +22,7 @@ export const Navbar = (props: Props) => {
           </svg>
         </label>
       </div>
+      <Search />
     </div>
   )
 }
