@@ -3,7 +3,9 @@ import Image from 'next/image'
 import React from 'react'
 import { Rating } from './Rating'
 
-type Props = ProductType & {}
+type Props = ProductType & {
+  onAddToCart: (id: number) => void
+}
 
 //Shared style
 const containerStyle = 'md:h-[680px]'
@@ -39,11 +41,13 @@ export const ProductSkeleton = () => (
 )
 
 export const Product = ({
+  id,
   title,
   description,
   image,
   price,
   rating,
+  onAddToCart,
 }: Props) => {
   return (
     <div className={`card w-96 bg-base-100 shadow-xl ${containerStyle}`}>
@@ -59,7 +63,11 @@ export const Product = ({
         <div className='card-actions items-end'>
           <div className='stat-value text-2xl'>${price}</div>
 
-          <button className='btn btn-primary ml-auto'>Add</button>
+          <button
+            className='btn btn-primary ml-auto'
+            onClick={() => onAddToCart(id)}>
+            Add
+          </button>
         </div>
       </div>
     </div>

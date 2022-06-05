@@ -53,7 +53,7 @@ export const productsSlice = createSlice({
       state.items = action.payload
     },
     addProducts: (state: ProductsState, action: PayloadAction<Product[]>) => {
-      state.items = action.payload
+      // state.items = action.payload
       //Only unique items can be added
       const uniqueItems = new Map(
         [...state.items, ...action.payload].map((item) => [item.id, item])

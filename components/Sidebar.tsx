@@ -7,10 +7,8 @@ export const Sidebar = ({ children }: ChildrenOnlyProps) => {
   return (
     <div className='drawer drawer-mobile'>
       <input id='my-drawer-3' type='checkbox' className='drawer-toggle' />
-      <div className='drawer-content flex flex-col'>
-        {/* <!-- Navbar --> */}
+      <div className='drawer-content flex flex-col overflow-y-auto'>
         <Navbar />
-        {/* <!-- Page content here --> */}
         {children}
       </div>
       <div className='drawer-side'>

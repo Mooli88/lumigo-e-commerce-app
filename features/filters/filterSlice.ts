@@ -50,18 +50,18 @@ export const { setFilterByPrice } = filterSlice.actions
 
 export const selectFilterSlice = (state: RootState) => state.filter
 
-const selectFilteredProductsByName = (state: RootState) =>
+const selectFilteredProductsByName = (state: Omit<RootState, 'cart'>) =>
   state.products.items.filter(({ title }) =>
     title.includes(state.filter.byName)
   )
 
 const selectSlice = createDraftSafeSelector(
-  (state: RootState) => ({ products: state.products, filter: state.filter }),
-  (state) => state
+  (state: RootState) => state,
+  (state) => ({ products: state.products, filter: state.filter })
 )
 
 export const selectFilteredProductsByPrice = (
-  state: RootState,
+  state: Omit<RootState, 'cart'>,
   products: Product[]
 ) => {
   let items: Product[] = products ?? state.products.items

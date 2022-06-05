@@ -5,6 +5,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Sidebar } from 'components/Sidebar'
+import { Cart } from 'features/Cart/Cart'
 
 type HomeProps = {
   products: Product[]
@@ -19,11 +20,12 @@ const Home: NextPage<HomeProps> = ({ products }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main>
-        <Sidebar>
+      <Sidebar>
+        <main className='flex justify-between h-screen overflow-x-hidden p-6'>
           <Products products={products} />
-        </Sidebar>
-      </main>
+          <Cart />
+        </main>
+      </Sidebar>
     </div>
   )
 }

@@ -16,6 +16,7 @@ import {
   selectFilteredProductsByPrice,
 } from 'features/filters/filterSlice'
 import { useSelector } from 'react-redux'
+import { addItem } from 'features/Cart/cartSlice'
 
 type ProductsProps = Props<{ products: ProductType[] }>
 
@@ -25,10 +26,6 @@ const MAX_ITEMS_PER_PAGE = 5
 export const Products = ({ products }: ProductsProps) => {
   const productsSlice = useAppSelector(selectProductSlice)
   const productItems = useAppSelector(selectFilteredProducts)
-  console.log(
-    '🚀 ~ file: Products.tsx ~ line 27 ~ Products ~ productItems',
-    productItems
-  )
   const productCount = useAppSelector(selectProductCount)
   const dispatch = useAppDispatch()
   const [productOfPage, setProductOfPage] =
@@ -62,19 +59,27 @@ export const Products = ({ products }: ProductsProps) => {
       : 0
 
   return (
-    <div>
+    <div className='flex flex-col overflow-y-auto justify-between'>
       <div className='flex flex-wrap'>
         {listToRender.map((props) => (
           <div className='p-6' key={props.id}>
             {productCount === 0 || loading === 'pending' ? (
               <ProductSkeleton />
             ) : (
-              <Product {...(props as ProductType)} />
+              <Product
+                {...(props as ProductType)}
+                onAddToCart={() => dispatch(addItem(props as ProductType))}
+              />
             )}
           </div>
         ))}
       </div>
-      <Paginator totalPages={5 ?? totalPages} onPageChange={handlePageChange} />
+      <div className='mx-auto'>
+        <Paginator
+          totalPages={5 ?? totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   )
 }
