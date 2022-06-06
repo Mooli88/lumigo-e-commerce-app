@@ -12,6 +12,11 @@ const _Paginator = ({ totalPages, onPageChange }: Props) => {
   const { pathname, query } = useRouter()
   const { page: currentPage } = query as { page: string }
 
+  const onPageSelected = (page: number) => {
+    if (`${page}` === currentPage) return
+    onPageChange(page)
+  }
+
   const renderPage = (index: number) => {
     const page = index + 1
     const isCurrentPage = `${page}` === currentPage ? 'btn-active' : ''
@@ -19,7 +24,7 @@ const _Paginator = ({ totalPages, onPageChange }: Props) => {
       <Link key={page} shallow href={`${pathname}?page=${page}`}>
         <a
           className={`btn ${isCurrentPage}`}
-          onClick={() => onPageChange(page)}>
+          onClick={() => onPageSelected(page)}>
           {page}
         </a>
       </Link>

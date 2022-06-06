@@ -51,7 +51,7 @@ export const Product = ({
 }: Props) => {
   return (
     <div className={`card w-96 bg-base-100 shadow-xl ${containerStyle}`}>
-      <figure className={`relative m-auto w-[70%] ${imgStyle}`}>
+      <figure className={`relative m-auto w-[75%] ${imgStyle}`}>
         <Image src={image} alt={title} layout='fill' priority />
       </figure>
       <div className='card-body'>
@@ -61,7 +61,7 @@ export const Product = ({
           <Rating score={rating.rate} count={rating.count} />
         </div>
         <div className='card-actions items-end'>
-          <div className='stat-value text-xl'>${price}</div>
+          <div className='stat-value text-xl'>${price.toFixed(2)}</div>
 
           <button
             className='btn btn-primary ml-auto'

@@ -39,7 +39,7 @@ export const fetchProducts = createAsyncThunk<
 
   const params = limit ? { limit: `${limit}` } : null
   const { data } = await client<Product[]>(`/products`, { params })
-  return data
+  return data.slice(limit - MAX_ITEMS_PER_PAGE, limit)
 })
 
 export const productsSlice = createSlice({
@@ -51,14 +51,6 @@ export const productsSlice = createSlice({
       action: PayloadAction<Product[]>
     ) => {
       state.items = action.payload
-    },
-    addProducts: (state: ProductsState, action: PayloadAction<Product[]>) => {
-      // state.items = action.payload
-      //Only unique items can be added
-      const uniqueItems = new Map(
-        [...state.items, ...action.payload].map((item) => [item.id, item])
-      )
-      state.items = [...uniqueItems.values()]
     },
   },
   extraReducers: (builder) => {
@@ -76,7 +68,7 @@ export const productsSlice = createSlice({
           state.currentRequestId === requestId
         ) {
           state.loading = 'idle'
-          state.items.push(...action.payload)
+          state.items = action.payload
           state.currentRequestId = null
         }
       })
@@ -94,7 +86,8 @@ export const productsSlice = createSlice({
   },
 })
 
-export const { addProducts, populateProducts } = productsSlice.actions
+export const MAX_ITEMS_PER_PAGE = 5
+export const { populateProducts } = productsSlice.actions
 
 export const selectProductSlice = (state: RootState) => state.products
 export const selectProductCount = (state: RootState) =>

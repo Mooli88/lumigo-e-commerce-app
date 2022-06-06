@@ -1,7 +1,6 @@
 import {
   createDraftSafeSelector,
   createSlice,
-  createSelector,
   PayloadAction,
 } from '@reduxjs/toolkit'
 import { RootState, useAppSelector } from 'app/store'
@@ -50,17 +49,17 @@ export const { setFilterByPrice, setFilterByName } = filterSlice.actions
 
 export const selectFilterSlice = (state: RootState) => state.filter
 
-const selectFilteredProductsByName = (state: Omit<RootState, 'cart'>) =>
-  state.products.items.filter(({ title }) =>
-    title.toLocaleLowerCase().includes(state.filter.byName)
-  )
-
 const selectSlice = createDraftSafeSelector(
   (state: RootState) => state,
   (state) => ({ products: state.products, filter: state.filter })
 )
 
-export const selectFilteredProductsByPrice = (
+const selectFilteredProductsByName = (state: Omit<RootState, 'cart'>) =>
+  state.products.items.filter(({ title }) =>
+    title.toLocaleLowerCase().includes(state.filter.byName)
+  )
+
+const selectFilteredProductsByPrice = (
   state: Omit<RootState, 'cart'>,
   products: Product[]
 ) => {

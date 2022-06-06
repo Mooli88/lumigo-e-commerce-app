@@ -33,16 +33,19 @@ export const Filters = () => {
 
   return (
     <div>
-      {FILTERS_BY_PRICE.map(({ id, label }) => (
-        <RadioBtn
-          key={id}
-          id={id}
-          label={label}
-          name='product-filter'
-          checked={byPrice.id === id}
-          onChange={onFilterChange}
-        />
-      ))}
+      <div>
+        <h3 className='font-bold'>By price</h3>
+        {FILTERS_BY_PRICE.map(({ id, label }) => (
+          <RadioBtn
+            key={id}
+            id={id}
+            label={label}
+            name='product-filter'
+            checked={byPrice.id === id}
+            onChange={onFilterChange}
+          />
+        ))}
+      </div>
     </div>
   )
 }
