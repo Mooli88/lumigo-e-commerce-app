@@ -1,5 +1,4 @@
 import getConfig from 'next/config'
-import mockData from '../public/mock.json'
 
 const { publicRuntimeConfig } = getConfig()
 const { apiUrl } = publicRuntimeConfig
@@ -11,11 +10,6 @@ export async function client<T>(
   endpoint: string,
   { body, params, ...customConfig }: Opts = {}
 ) {
-  return new Promise((res) => {
-    setTimeout(() => {
-      return res({ data: mockData })
-    }, 1000)
-  })
   const headers = { 'Content-Type': 'application/json' }
 
   const config: RequestInit = {
