@@ -1,7 +1,12 @@
+import getConfig from 'next/config'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from 'app/store'
 import { CartItem } from 'types/cart'
 import { Product } from 'types/product'
+import { getFromLocalStorage } from 'utils'
+
+const { publicRuntimeConfig } = getConfig()
+const { localStorageStateKey } = publicRuntimeConfig
 
 interface CartState {
   items: CartItem[]
@@ -15,7 +20,12 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addItem: (state: CartState, action: PayloadAction<Product>) => {
+    populateCart: (state: CartState, action: PayloadAction<CartItem[]>) => {
+      if (action.payload) {
+        state.items = action.payload
+      }
+    },
+    addToCart: (state: CartState, action: PayloadAction<Product>) => {
       const itemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
       )
@@ -33,7 +43,7 @@ export const cartSlice = createSlice({
         state.items[itemIndex] = newItem
       } else state.items.push(newItem)
     },
-    removeItem: (
+    removeFromCart: (
       state: CartState,
       action: PayloadAction<Pick<Product, 'id'>>
     ) => {
@@ -45,10 +55,15 @@ export const cartSlice = createSlice({
   },
 })
 
-export const { addItem, removeItem } = cartSlice.actions
+export const { populateCart, addToCart, removeFromCart } = cartSlice.actions
 
 export const selectCartItems = (state: RootState) => state.cart.items
 export const selectCartTotal = (state: RootState) =>
-  state.cart.items.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
+  state.cart.items.length > 0
+    ? state.cart.items.reduce(
+        (acc, curr) => acc + curr.price * curr.quantity,
+        0
+      )
+    : 0
 
 export default cartSlice.reducer
