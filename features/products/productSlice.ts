@@ -86,7 +86,7 @@ export const productsSlice = createSlice({
   },
 })
 
-export const MAX_ITEMS_PER_PAGE = 5
+export const MAX_ITEMS_PER_PAGE = 6
 export const { populateProducts } = productsSlice.actions
 
 export const selectProductSlice = (state: RootState) => state.products

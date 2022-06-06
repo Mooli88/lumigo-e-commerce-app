@@ -536,7 +536,7 @@ csstype@^3.0.2:
 
 daisyui@^2.15.2:
   version "2.15.2"
-  resolved "https://registry.npmjs.org/daisyui/-/daisyui-2.15.2.tgz"
+  resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-2.15.2.tgz#4182942fde62d605ba95526a325e08bead70dbe9"
   integrity sha512-12hjzlOUkGVzMPKhaBc8soqNY2mJWGTYJF8sTuCibDcdGbHDmYgBUY0OX1HHIVq/qh2vELh5yHb4QCgCDWUAwg==
   dependencies:
     color "^4.2"

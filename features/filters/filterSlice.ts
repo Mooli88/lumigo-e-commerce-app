@@ -4,37 +4,45 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit'
 import { RootState, useAppSelector } from 'app/store'
-import { Filter } from 'types/filter'
+import { FilterByPrice } from 'types/filter'
 import { Product } from 'types/product'
 
 interface FilterState {
-  byPrice: Filter
   byName: string
+  byPrice: FilterByPrice
+  byRating: number
 }
 
 const initialState: FilterState = {
+  byName: '',
   byPrice: {
     id: 'all',
     value: [],
   },
-  byName: '',
+  byRating: 1,
 }
 
 export const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    setFilterByPrice: (state: FilterState, action: PayloadAction<Filter>) => {
+    setFilterByPrice: (
+      state: FilterState,
+      action: PayloadAction<FilterByPrice>
+    ) => {
       state.byPrice = action.payload
     },
     setFilterByName: (state: FilterState, action: PayloadAction<string>) => {
       state.byName = action.payload.toLocaleLowerCase()
       state.byPrice = initialState.byPrice
     },
+    setFilterByRating: (state: FilterState, action: PayloadAction<number>) => {
+      state.byRating = action.payload
+    },
   },
 })
 
-const filterByPrice = (price: number, { value: filter }: Filter) => {
+const filterByPrice = (price: number, { value: filter }: FilterByPrice) => {
   switch (filter.length) {
     case 0:
       return true
@@ -45,38 +53,27 @@ const filterByPrice = (price: number, { value: filter }: Filter) => {
   }
 }
 
-export const { setFilterByPrice, setFilterByName } = filterSlice.actions
+export const { setFilterByPrice, setFilterByName, setFilterByRating } =
+  filterSlice.actions
 
 export const selectFilterSlice = (state: RootState) => state.filter
 
-const selectSlice = createDraftSafeSelector(
-  (state: RootState) => state,
-  (state) => ({ products: state.products, filter: state.filter })
-)
+const selectFilteredProductsByPriceAndRating = (state: RootState) =>
+  state.products.items.filter(
+    ({ price, rating }) =>
+      filterByPrice(price, state.filter.byPrice) &&
+      Math.round(rating.rate) >= state.filter.byRating
+  )
 
-const selectFilteredProductsByName = (state: Omit<RootState, 'cart'>) =>
-  state.products.items.filter(({ title }) =>
+const selectFilteredProductsByName = (state: RootState, product: Product[]) =>
+  product.filter(({ title }) =>
     title.toLocaleLowerCase().includes(state.filter.byName)
   )
 
-const selectFilteredProductsByPrice = (
-  state: Omit<RootState, 'cart'>,
-  products: Product[]
-) => {
-  let items: Product[] = products ?? state.products.items
-
-  if (state.filter.byPrice.value.length > 0) {
-    items = items.filter(({ price }) =>
-      filterByPrice(price, state.filter.byPrice)
-    )
-  }
-  return items
-}
-
 export const selectFilteredProducts = createDraftSafeSelector(
-  selectSlice,
-  selectFilteredProductsByName,
-  selectFilteredProductsByPrice
+  (state: RootState) => state,
+  selectFilteredProductsByPriceAndRating,
+  selectFilteredProductsByName
 )
 
 export default filterSlice.reducer

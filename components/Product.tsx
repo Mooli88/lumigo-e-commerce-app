@@ -50,7 +50,7 @@ export const Product = ({
   onAddToCart,
 }: Props) => {
   return (
-    <div className={`card w-96 bg-base-100 shadow-xl ${containerStyle}`}>
+    <div className={`card w-72 bg-base-100 shadow-xl ${containerStyle}`}>
       <figure className={`relative m-auto w-[75%] ${imgStyle}`}>
         <Image src={image} alt={title} layout='fill' priority />
       </figure>
