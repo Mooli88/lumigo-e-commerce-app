@@ -6,6 +6,7 @@ const nextConfig = {
   },
   publicRuntimeConfig: {
     apiUrl: process.env.API_URL,
+    localStorageStateKey: 'lumigo-state',
   },
 }
 

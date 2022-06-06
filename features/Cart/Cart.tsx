@@ -1,9 +1,20 @@
-import { useAppDispatch, useAppSelector } from 'app/store'
+import { RootState, useAppDispatch, useAppSelector } from 'app/store'
+import getConfig from 'next/config'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Product } from 'types/product'
 import { ChildrenOnlyProps } from 'types/propType'
-import { removeItem, selectCartItems, selectCartTotal } from './cartSlice'
+import { getFromLocalStorage } from 'utils'
+import {
+  addToCart,
+  populateCart,
+  removeFromCart,
+  selectCartItems,
+  selectCartTotal,
+} from './cartSlice'
+
+const { publicRuntimeConfig } = getConfig()
+const { localStorageStateKey } = publicRuntimeConfig
 
 type Props = {}
 type CartItemProps = {
@@ -78,6 +89,17 @@ export const Cart = () => {
   const dispatch = useAppDispatch()
   const cartItems = useAppSelector(selectCartItems)
   const cartTotal = useAppSelector(selectCartTotal)
+
+  useEffect(() => {
+    const { items } =
+      getFromLocalStorage<RootState>(
+        localStorageStateKey,
+        ({ cart }) => cart
+      ) ?? []
+
+    dispatch(populateCart(items))
+  }, [])
+
   return (
     <div className='card h-full w-1/3 max-w-md min-w-[480px] bg-base-100 shadow-xl'>
       <div className='card-body'>
@@ -89,7 +111,7 @@ export const Cart = () => {
                 key={product.id}
                 product={product}
                 quantity={quantity}
-                onRemove={(id) => dispatch(removeItem({ id }))}
+                onRemove={(id) => dispatch(removeFromCart({ id }))}
               />
             ))}
           </CartItems>
