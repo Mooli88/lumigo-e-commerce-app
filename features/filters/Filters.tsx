@@ -19,6 +19,7 @@ export const FILTERS_BY_PRICE: IFilterByPrice[] = [
   { id: '100-200', label: '100$ - 200$', value: [100, 200] },
   { id: '>200', label: 'Above 200$', value: [201] },
 ]
+
 const FILTERS_BY_PRICE_INDEXED = FILTERS_BY_PRICE.reduce((acc, curr) => {
   acc[curr.id] = curr
   return acc

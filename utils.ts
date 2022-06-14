@@ -13,9 +13,9 @@ export const getFromLocalStorage = <T>(
     const res = JSON.parse(data)
     return extractor ? extractor(res) : res
   } catch (error) {
-    console.error(
-      '🚀 ~ file: utils.ts ~ line 11 ~ saveStateLocally ~ error',
-      error
-    )
+    if (error instanceof Error)
+      console.warn(
+        `LocalStorage: ${key} not found, or invalid JSON. - ${error.message}`
+      )
   }
 }

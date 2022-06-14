@@ -3,10 +3,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from 'app/store'
 import { CartItem } from 'types/cart'
 import { Product } from 'types/product'
-import { getFromLocalStorage } from 'utils'
-
-const { publicRuntimeConfig } = getConfig()
-const { localStorageStateKey } = publicRuntimeConfig
 
 interface CartState {
   items: CartItem[]

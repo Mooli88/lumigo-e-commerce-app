@@ -14,6 +14,7 @@ import cartReducer, {
 import filterReducer, {
   setFilterByPrice,
 } from '../features/filters/filterSlice'
+
 const { publicRuntimeConfig } = getConfig()
 const { localStorageStateKey } = publicRuntimeConfig
 
@@ -21,6 +22,7 @@ export const listenerMiddleware = createListenerMiddleware()
 export const startAppListening =
   listenerMiddleware.startListening as AppStartListening
 export const LOCAL_STORAGE_STATE_KEY = 'lumigo-state'
+
 startAppListening({
   matcher: isAnyOf(addToCart, removeFromCart, setFilterByPrice),
   effect: async (_, listenerApi) => {

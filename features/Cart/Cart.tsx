@@ -6,7 +6,6 @@ import { Product } from 'types/product'
 import { ChildrenOnlyProps } from 'types/propType'
 import { getFromLocalStorage } from 'utils'
 import {
-  addToCart,
   populateCart,
   removeFromCart,
   selectCartItems,

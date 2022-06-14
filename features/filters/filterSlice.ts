@@ -35,6 +35,7 @@ export const filterSlice = createSlice({
     setFilterByName: (state: FilterState, action: PayloadAction<string>) => {
       state.byName = action.payload.toLocaleLowerCase()
       state.byPrice = initialState.byPrice
+      state.byRating = initialState.byRating
     },
     setFilterByRating: (state: FilterState, action: PayloadAction<number>) => {
       state.byRating = action.payload
