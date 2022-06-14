@@ -46,8 +46,8 @@ const CartItem = ({ product, quantity, onRemove }: CartItemProps) => (
             <Image
               src={product.image}
               alt={product.title}
-              width={48}
-              height={48}
+              layout='fill'
+              objectFit='contain'
             />
           </div>
         </div>

@@ -8,6 +8,11 @@ type Props = {
 }
 
 const stars = [1, 2, 3, 4, 5]
+const starsSizeCls = {
+  sm: 'rating-sm',
+  md: 'rating-md',
+  lg: 'rating-lg',
+}
 
 const _Rating = ({ score, count, size = 'md', onClick }: Props) => {
   const nameRef = useRef(`${score}-${Math.random().toFixed(5) + score}`).current
@@ -22,7 +27,7 @@ const _Rating = ({ score, count, size = 'md', onClick }: Props) => {
           }}
         />
       ) : null}
-      <div className={`rating rating-${size}`}>
+      <div className={`rating ${starsSizeCls[size]} `}>
         {stars.map((val) => (
           <input
             key={val}
@@ -31,6 +36,7 @@ const _Rating = ({ score, count, size = 'md', onClick }: Props) => {
             defaultChecked={roundScore === val}
             disabled
             className='mask mask-star-2 bg-orange-400'
+            style={{ transition: 'all .25s ease' }}
           />
         ))}
       </div>

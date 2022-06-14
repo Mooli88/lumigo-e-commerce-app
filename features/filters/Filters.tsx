@@ -45,7 +45,7 @@ export const Filters = () => {
   )
 
   return (
-    <div>
+    <div className='w-48'>
       <div>
         <h3 className='font-bold'>Price</h3>
         {FILTERS_BY_PRICE.map(({ id, label }) => (

@@ -14,8 +14,8 @@ const imgStyle = 'pt-[80%]'
 export const ProductSkeleton = () => (
   <div
     className={`card p-4 bg-white rounded-lg overflow-hidden shadow  w-96 hover:shadow-md rounded-lg ${containerStyle}`}>
-    <div className='animate-pulse flex flex-col'>
-      <div className={`rounded w-full bg-gray-200 ${imgStyle} `}></div>
+    <div className='animate-pulse flex flex-col h-full'>
+      <div className={`rounded w-full bg-gray-200 ${imgStyle}`}></div>
 
       <div className='flex flex-col mt-5'>
         <div className='w-full h-12 bg-gray-200 rounded'></div>
@@ -33,7 +33,7 @@ export const ProductSkeleton = () => (
         <div className='mt-2 w-full h-3 bg-gray-200 rounded'></div>
       </div>
 
-      <div className='flex items-center mt-6  justify-end'>
+      <div className='flex  mt-6 justify-end items-end flex-1'>
         <div className='btn border-0 bg-gray-400 w-20'></div>
       </div>
     </div>
@@ -51,8 +51,14 @@ export const Product = ({
 }: Props) => {
   return (
     <div className={`card w-72 bg-base-100 shadow-xl ${containerStyle}`}>
-      <figure className={`relative m-auto w-[75%] ${imgStyle}`}>
-        <Image src={image} alt={title} layout='fill' priority />
+      <figure className={`relative m-auto w-[90%] ${imgStyle}`}>
+        <Image
+          src={image}
+          alt={title}
+          layout='fill'
+          priority
+          objectFit='contain'
+        />
       </figure>
       <div className='card-body'>
         <h2 className='card-title'>{title}</h2>
