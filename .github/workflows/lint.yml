@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [14.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -42,5 +42,5 @@ jobs:
 
     - uses: reviewdog/action-eslint@v1
       with:
-        fail_on_error: true
+        fail_on_error: false
         eslint_flags: -c ./.eslintrc.json --ignore-path ./.eslintignore ${{ steps.changed_files.outputs.files_added }} ${{ steps.changed_files.outputs.files_modified }}
