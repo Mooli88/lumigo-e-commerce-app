@@ -7,15 +7,16 @@ import { Sidebar } from 'components/Sidebar'
 import { Cart } from 'features/Cart/Cart'
 import { MAX_ITEMS_PER_PAGE } from 'features/products/productSlice'
 
+let num = 0
 let num_2 = 1
-// const foo = null
+const baz = null
 
 type HomeProps = {
   products: Product[]
 }
 
 const Home: NextPage<HomeProps> = ({ products }) => {
-  console.log(num_2)
+  console.log(num + num_2)
   return (
     <div>
       <Head>
