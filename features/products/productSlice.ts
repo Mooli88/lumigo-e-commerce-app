@@ -30,7 +30,7 @@ export const fetchProducts = createAsyncThunk<
     dispatch: AppDispatch
     state: RootState
   }
->('products/fetchProducts', async (limit: number, { getState, requestId }) => {
+>('products/fetchProducts', async (limit, { getState, requestId }) => {
   getState().products.items
   const { currentRequestId, loading } = getState().products
   if (loading !== 'pending' || requestId !== currentRequestId) {
