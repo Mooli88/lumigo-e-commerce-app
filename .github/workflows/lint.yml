@@ -29,17 +29,18 @@ jobs:
     - run: yarn install --immutable --immutable-cache
     
     - name: Get file changes
+      id: changed_files
       uses: trilom/file-changes-action@v1.2.4
       with: 
         output: ' '
         
     - name: Echo file changes
       run: |
-            echo Added files: ${{ steps.get_file_changes.outputs.files_added }}
-            echo Changed files: ${{ steps.get_file_changes.outputs.files_modified }}
-            echo Removed files: ${{ steps.get_file_changes.outputs.files_removed }}
+            echo Added files: ${{ steps.changed_files.outputs.files_added }}
+            echo Changed files: ${{ steps.changed_files.outputs.files_modified }}
+            echo Removed files: ${{ steps.changed_files.outputs.files_removed }}
 
     - name: ESLint Checking
-      if: ${{ steps.get_file_changes.outputs.files_added || steps.get_file_changes.outputs.files_modified }}
-      run: yarn eslint -c ./.eslintrc.json --ignore-path ./.eslintignore ${{ steps.get_file_changes.outputs.files_added }} ${{ steps.get_file_changes.outputs.files_modified }}
+      if: ${{ steps.changed_files.outputs.files_added || steps.changed_files.outputs.files_modified }}
+      run: yarn eslint -c ./.eslintrc.json --ignore-path ./.eslintignore ${{ steps.changed_files.outputs.files_added }} ${{ steps.changed_files.outputs.files_modified }}
 
