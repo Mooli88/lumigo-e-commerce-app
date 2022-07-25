@@ -40,7 +40,6 @@ jobs:
             echo Changed files: ${{ steps.changed_files.outputs.files_modified }}
             echo Removed files: ${{ steps.changed_files.outputs.files_removed }}
 
-    - name: ESLint Checking
-      if: ${{ steps.changed_files.outputs.files_added || steps.changed_files.outputs.files_modified }}
-      run: yarn eslint -c ./.eslintrc.json --ignore-path ./.eslintignore ${{ steps.changed_files.outputs.files_added }} ${{ steps.changed_files.outputs.files_modified }}
-
+    - uses: reviewdog/action-eslint@v1
+      with:
+        eslint_flags: -c ./.eslintrc.json --ignore-path ./.eslintignore ${{ steps.changed_files.outputs.files_added }} ${{ steps.changed_files.outputs.files_modified }}
