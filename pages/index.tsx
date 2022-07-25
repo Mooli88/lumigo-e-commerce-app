@@ -8,7 +8,7 @@ import { Cart } from 'features/Cart/Cart'
 import { MAX_ITEMS_PER_PAGE } from 'features/products/productSlice'
 
 let num = 1
-// const foo = null
+const foo = null
 
 type HomeProps = {
   products: Product[]
