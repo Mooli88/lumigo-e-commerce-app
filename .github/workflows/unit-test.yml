@@ -11,6 +11,7 @@ on:
 
 jobs:
   test:
+
     runs-on: ubuntu-latest
 
     strategy:
@@ -24,6 +25,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
-      run: yarn install
+    - run: yarn install
     - name: Run unit tests
       run: yarn run test:ci
