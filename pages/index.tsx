@@ -10,6 +10,7 @@ import { MAX_ITEMS_PER_PAGE } from 'features/products/productSlice'
 let num = 0
 let num_2 = 1
 const baz = null
+const bar = null
 
 type HomeProps = {
   products: Product[]
