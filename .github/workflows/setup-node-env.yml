@@ -10,15 +10,12 @@ on:
 jobs:
   use_node:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
-
+    
     steps:
       - uses: actions/checkout@v3
-      - name: Use NodeJs ${{ matrix.node-version }} 
+      - name: Use NodeJs 14.x
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 14.x
           cache: 'yarn'
       - run: yarn install ${{ inputs.cmd_opts }}
