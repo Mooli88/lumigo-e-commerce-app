@@ -7,39 +7,42 @@ on:
     types:
       - opened
       - synchronize
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
-  lint:
+  # setup_node_env:
+  #   uses: Mooli88/lumigo-e-commerce-app/.github/workflows/setup-node-env.yml@main
 
+  lint:
     runs-on: ubuntu-latest
+    needs: setup_node_env
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-    - run: yarn install --immutable --immutable-cache
-    
-    - name: Get file changes
-      id: changed_files
-      uses: trilom/file-changes-action@v1.2.4
-      with: 
-        output: ' '
-        
-    - name: Echo file changes
-      run: |
-            echo Added files: ${{ steps.changed_files.outputs.files_added }}
-            echo Changed files: ${{ steps.changed_files.outputs.files_modified }}
-            echo Removed files: ${{ steps.changed_files.outputs.files_removed }}
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      - run: yarn install --immutable --immutable-cache
 
-    - uses: reviewdog/action-eslint@v1
-      with:
-        fail_on_error: true
-        eslint_flags: -c ./.eslintrc.json --ignore-path ./.eslintignore ${{ steps.changed_files.outputs.files_added }} ${{ steps.changed_files.outputs.files_modified }}
+      - name: Get file changes
+        id: changed_files
+        uses: trilom/file-changes-action@v1.2.4
+        with:
+          output: ' '
+
+      - name: Echo file changes
+        run: |
+          echo Added files: ${{ steps.changed_files.outputs.files_added }}
+          echo Changed files: ${{ steps.changed_files.outputs.files_modified }}
+          echo Removed files: ${{ steps.changed_files.outputs.files_removed }}
+
+      - uses: reviewdog/action-eslint@v1
+        with:
+          eslint_flags: -c ./.eslintrc.json --ignore-path ./.eslintignore ${{ steps.changed_files.outputs.files_added }} ${{ steps.changed_files.outputs.files_modified }}
