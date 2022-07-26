@@ -1,0 +1,24 @@
+name: Setup Node env workflow
+
+on:
+  workflow_call:
+    inputs:
+      cmd_opts:
+        required: false
+        type: string
+
+jobs:
+  use_node:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use NodeJs ${{ matrix.node-version }} 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      - run: yarn install ${{ inputs.cmd_opts }}
