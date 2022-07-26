@@ -11,6 +11,9 @@ let num = 0
 let num_2 = 1
 const baz = null
 const bar = null
+const bar_2 = null
+const bar_3 = null
+const bar_4 = null
 
 type HomeProps = {
   products: Product[]
