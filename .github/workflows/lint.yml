@@ -11,7 +11,7 @@ on:
 
 jobs:
   setup_node_env:
-    uses: ./.github/workflows/setup-node-env.yml
+    uses: Mooli88/lumigo-e-commerce-app/.github/workflows/setup-node-env.yml
 
   # lint:
   #   runs-on: ubuntu-latest
