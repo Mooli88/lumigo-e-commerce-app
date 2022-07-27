@@ -10,12 +10,13 @@ on:
     branches: ['main']
 
 jobs:
-  # setup_node_env:
-  #   uses: Mooli88/lumigo-e-commerce-app/.github/workflows/setup-node-env.yml@main
+  setup_node_env:
+    name: Setup NodeJS env
+    uses: Mooli88/lumigo-e-commerce-app/.github/workflows/setup-node-env.yml@main
 
   lint:
     runs-on: ubuntu-latest
-    # needs: setup_node_env
+    needs: setup_node_env
 
     strategy:
       matrix:
