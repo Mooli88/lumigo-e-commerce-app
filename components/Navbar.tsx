@@ -1,10 +1,7 @@
 import { Search } from 'features/filters/Search'
 import React from 'react'
-import { Searchbox } from './Searchbox'
 
-type Props = {}
-
-export const Navbar = (props: Props) => {
+export const Navbar = () => {
   return (
     <div className='w-full navbar bg-transparent p-5'>
       <div className='flex-none lg:hidden'>
