@@ -15,7 +15,7 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
-    needs: setup_node_env
+    # needs: setup_node_env
 
     strategy:
       matrix:
