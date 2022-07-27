@@ -36,7 +36,7 @@ export const Searchbox = ({ id, onChange }: Props) => {
       <input
         id={id}
         ref={inputRef}
-        type='search'
+        type='text'
         name={`search_${id}`}
         placeholder='Search…'
         autoComplete='off'
