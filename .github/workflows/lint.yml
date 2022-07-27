@@ -13,6 +13,7 @@ on:
 
 jobs:
   setup_node_env:
+    name: Setup NodeJS env
     uses: Mooli88/lumigo-e-commerce-app/.github/workflows/setup-node-env.yml@main
 
   lint:
