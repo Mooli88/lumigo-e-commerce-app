@@ -7,12 +7,6 @@ import { Sidebar } from 'components/Sidebar'
 import { Cart } from 'features/Cart/Cart'
 import { MAX_ITEMS_PER_PAGE } from 'features/products/productSlice'
 
-let num = 0
-let num_2 = 1
-const baz = null
-const bar = null
-const bar_2 = null
-const bar_3 = null
 const bar_4 = null
 
 type HomeProps = {
