@@ -10,31 +10,15 @@ on:
   workflow_call:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning' 
-        type: choice
-        options:
-        - info
-        - warning
-        - debug 
       lint_all:
         description: 'Scan entire project for lint errors'
         required: true
         default: true
         type: boolean 
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true 
-        type: boolean 
-      tags:
-        description: 'Test scenario tags'
-        required: true 
-        type: string
       environment:
         description: 'Environment to run tests against'
         type: environment
+        default: 'staging'
         required: true 
 
 jobs:
@@ -45,6 +29,8 @@ jobs:
   lint:
     name: Lint
     uses: Mooli88/lumigo-e-commerce-app/.github/workflows/lint.yml@main
+    with:
+      lint_all: ${{ inputs.lint_all }}
 
   test:
     name: Test application
