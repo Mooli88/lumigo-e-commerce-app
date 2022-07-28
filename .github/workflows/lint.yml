@@ -17,6 +17,12 @@ on:
         required: false
 
 jobs:
+  tst:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo inputs.lint_all
+        run: echo ${{ inputs.lint_all }}
+
   lint-changed-files-only:
     runs-on: ubuntu-latest
 
