@@ -1,0 +1,24 @@
+name: Development
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+  workflow_call:
+
+jobs:
+  build:
+    name: Build application
+    uses: Mooli88/lumigo-e-commerce-app/.github/workflows/build.yml@main
+
+  lint:
+    name: Lint
+    uses: Mooli88/lumigo-e-commerce-app/.github/workflows/lint.yml@main
+
+  test:
+    name: Test application
+    uses: Mooli88/lumigo-e-commerce-app/.github/workflows/build.yml@main
+
+     

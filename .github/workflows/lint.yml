@@ -9,26 +9,22 @@ on:
       - synchronize
     branches: ['main']
 
-  workflow_run:
-    workflows:
-      - Build
-    types:
-      - completed
+  workflow_call:
+    inputs:
+      lint_all:
+        required: false
+        type: boolean
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    strategy:
-      matrix:
-        node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16.x
           cache: 'yarn'
       - run: yarn install
 
@@ -39,6 +35,7 @@ jobs:
           output: ' '
 
       - name: Echo file changes
+        if: input.lint_all != true
         run: |
           echo Added files: ${{ steps.changed_files.outputs.files_added }}
           echo Changed files: ${{ steps.changed_files.outputs.files_modified }}
@@ -47,4 +44,4 @@ jobs:
       - uses: reviewdog/action-eslint@v1
         with:
           fail_on_error: true
-          eslint_flags: -c ./.eslintrc.json --ignore-path ./.eslintignore ${{ steps.changed_files.outputs.files_added }} ${{ steps.changed_files.outputs.files_modified }}
+          eslint_flags: -c ./.eslintrc.json --ignore-path ./.eslintignore ${{ !input.lint_all && steps.changed_files.outputs.files_added || '' }} ${{ !input.lint_all && steps.changed_files.outputs.files_modified || '' }}
