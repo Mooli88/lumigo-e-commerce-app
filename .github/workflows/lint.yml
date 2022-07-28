@@ -20,9 +20,11 @@ jobs:
   lint-changed-files-only:
     runs-on: ubuntu-latest
 
-    if: inputs.lint_all == false
+    if: inputs.lint_all == 'false'
 
     steps:
+      - name: Echo inputs.lint_all
+        run: echo ${{ inputs.lint_all }}
       - uses: actions/checkout@v3
       - name: Use Node.js 16.x
         uses: actions/setup-node@v3

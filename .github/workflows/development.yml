@@ -20,7 +20,7 @@ on:
         - warning
         - debug 
       lint_all:
-        description: 'Scan project for lint errors'
+        description: 'Scan entire project for lint errors'
         required: true
         default: true
         type: boolean 
