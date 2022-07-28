@@ -26,7 +26,7 @@ jobs:
   lint-changed-files-only:
     runs-on: ubuntu-latest
 
-    if: inputs.lint_all == 'false'
+    if: inputs.lint_all == false
 
     steps:
       - name: Echo inputs.lint_all
@@ -61,7 +61,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
-    if: inputs.lint_all == 'true'
+    if: inputs.lint_all == true
 
     steps:
       - uses: actions/checkout@v3
