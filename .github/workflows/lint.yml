@@ -12,8 +12,9 @@ on:
   workflow_call:
     inputs:
       lint_all:
-        required: false
         type: boolean
+        default: false
+        required: false
 
 jobs:
   lint:
@@ -34,8 +35,11 @@ jobs:
         with:
           output: ' '
 
+      - name: Echo inputs.lint_all
+        run: echo ${{ inputs.lint_all }}
+
       - name: Echo file changes
-        if: inputs.lint_all != true
+        if: inputs.lint_all == false
         run: |
           echo Added files: ${{ steps.changed_files.outputs.files_added }}
           echo Changed files: ${{ steps.changed_files.outputs.files_modified }}
