@@ -35,7 +35,7 @@ jobs:
           output: ' '
 
       - name: Echo file changes
-        if: input.lint_all != true
+        if: inputs.lint_all != true
         run: |
           echo Added files: ${{ steps.changed_files.outputs.files_added }}
           echo Changed files: ${{ steps.changed_files.outputs.files_modified }}
@@ -44,4 +44,4 @@ jobs:
       - uses: reviewdog/action-eslint@v1
         with:
           fail_on_error: true
-          eslint_flags: -c ./.eslintrc.json --ignore-path ./.eslintignore ${{ !input.lint_all && steps.changed_files.outputs.files_added || '' }} ${{ !input.lint_all && steps.changed_files.outputs.files_modified || '' }}
+          eslint_flags: -c ./.eslintrc.json --ignore-path ./.eslintignore ${{ !inputs.lint_all && steps.changed_files.outputs.files_added || '' }} ${{ !inputs.lint_all && steps.changed_files.outputs.files_modified || '' }}

@@ -6,7 +6,7 @@ on:
       - opened
       - reopened
       - synchronize
-      
+
   workflow_call:
   workflow_dispatch:
 
@@ -21,6 +21,6 @@ jobs:
 
   test:
     name: Test application
-    uses: Mooli88/lumigo-e-commerce-app/.github/workflows/build.yml@main
+    uses: Mooli88/lumigo-e-commerce-app/.github/workflows/unit-test.yml@main
 
      
