@@ -55,7 +55,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
-    if: inputs.lint_all == true
+    if: inputs.lint_all == 'true'
 
     steps:
       - uses: actions/checkout@v3
