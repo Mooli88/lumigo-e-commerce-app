@@ -26,7 +26,7 @@ export const Products = ({ products }: ProductsProps) => {
   const productCount = useAppSelector(selectProductCount)
   const dispatch = useAppDispatch()
   const [productOfPage, setProductOfPage] = useState<ProductType[]>([])
-  const { loading, error } = productsSlice
+  const { loading } = productsSlice
 
   useEffect(() => {
     setProductOfPage(productItems)

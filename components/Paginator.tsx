@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useCallback, useMemo, useState } from 'react'
+import React from 'react'
 import { genListFromNum } from 'utils'
 
 type Props = {

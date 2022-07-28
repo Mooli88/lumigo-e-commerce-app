@@ -3,7 +3,7 @@ import {
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit'
-import { RootState, useAppSelector } from 'app/store'
+import { RootState } from 'app/store'
 import { FilterByPrice } from 'types/filter'
 import { Product } from 'types/product'
 

@@ -1,4 +1,3 @@
-import { Cart } from 'features/Cart/Cart'
 import { Filters } from 'features/filters/Filters'
 import React from 'react'
 import { ChildrenOnlyProps } from 'types/propType'

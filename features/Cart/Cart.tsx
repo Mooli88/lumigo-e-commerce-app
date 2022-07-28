@@ -15,7 +15,6 @@ import {
 const { publicRuntimeConfig } = getConfig()
 const { localStorageStateKey } = publicRuntimeConfig
 
-type Props = {}
 type CartItemProps = {
   product: Pick<Product, 'id' | 'title' | 'image' | 'price'>
   quantity: number

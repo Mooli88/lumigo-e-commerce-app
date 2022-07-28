@@ -1,4 +1,3 @@
-import getConfig from 'next/config'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from 'app/store'
 import { CartItem } from 'types/cart'
