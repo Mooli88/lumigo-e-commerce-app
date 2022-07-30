@@ -1,6 +1,6 @@
 import { RootState, useAppDispatch, useAppSelector } from 'app/store'
 import getConfig from 'next/config'
-import Image from 'next/image'
+import ExportedImage from 'next-image-export-optimizer'
 import React, { useEffect } from 'react'
 import { Product } from 'types/product'
 import { ChildrenOnlyProps } from 'types/propType'
@@ -42,7 +42,7 @@ const CartItem = ({ product, quantity, onRemove }: CartItemProps) => (
       <div className='flex items-center space-x-3'>
         <div className='avatar'>
           <div className='mask mask-squircle w-12 h-12'>
-            <Image
+            <ExportedImage
               src={product.image}
               alt={product.title}
               layout='fill'

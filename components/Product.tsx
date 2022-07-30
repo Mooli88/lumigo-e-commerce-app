@@ -1,5 +1,5 @@
 import { Product as ProductType } from 'types/product'
-import Image from 'next/image'
+import ExportedImage from 'next-image-export-optimizer'
 import React from 'react'
 import { Rating } from './Rating'
 
@@ -52,7 +52,7 @@ export const Product = ({
   return (
     <div className={`card w-72 bg-base-100 shadow-xl ${containerStyle}`}>
       <figure className={`relative m-auto w-[90%] ${imgStyle}`}>
-        <Image
+        <ExportedImage
           src={image}
           alt={title}
           layout='fill'
