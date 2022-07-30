@@ -20,18 +20,19 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Use NodeJs 16.x
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
-        cache: 'yarn'
-    - run: yarn install --immutable --immutable-cache
+    # - name: Use NodeJs 16.x
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: 16.x
+    #     cache: 'yarn'
+    # - run: yarn install --immutable --immutable-cache
 
-    - name: Export
-      run: |
-        mkdir ./public/images
-        yarn export
-
+    # - name: Export
+    #   run: |
+    #     mkdir ./public/images
+    #     yarn export
+    - run: echo ${{ secrets.AWS_CF_ACCESS_KEY_ID }}
+    - run: echo ${{ secrets.AWS_CF_SECRET_ACCESS_KEY }}
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -39,8 +40,8 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_CF_SECRET_ACCESS_KEY }}
         aws-region: eu-west-2
 
-    - name: Copy files to the test website with the AWS CLI
-      run: |
-        aws s3 sync ./out s3://lumingo-e-commerce
+    # - name: Copy files to the test website with the AWS CLI
+    #   run: |
+    #     aws s3 sync ./out s3://lumingo-e-commerce
   
     
