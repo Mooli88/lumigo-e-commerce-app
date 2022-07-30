@@ -7,10 +7,6 @@ on:
       - static_site
 
 jobs:
-  build:
-    name: Build application
-    uses: Mooli88/lumigo-e-commerce-app/.github/workflows/build.yml@main
-
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
