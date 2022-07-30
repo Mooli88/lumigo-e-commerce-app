@@ -28,6 +28,7 @@ jobs:
 
   lint:
     name: Lint
+    needs: build
     uses: Mooli88/lumigo-e-commerce-app/.github/workflows/lint.yml@main
     with:
       lint_all: ${{ inputs.lint_all }}
