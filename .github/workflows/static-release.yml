@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - static_site
+
+jobs:
+  build:
+    name: Build application
+    uses: Mooli88/lumigo-e-commerce-app/.github/workflows/build.yml@main
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: staging
+    needs: build
+        # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Use NodeJs 16.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+        cache: 'yarn'
+    - run: yarn install --immutable --immutable-cache
+
+    - name: Export
+      run: yarn export
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_CF_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_CF_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-2
+
+    - name: Copy files to the test website with the AWS CLI
+      run: |
+        aws s3 sync ./out s3://lumingo-e-commerce
+  
+    
