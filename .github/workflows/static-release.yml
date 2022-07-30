@@ -28,7 +28,9 @@ jobs:
     - run: yarn install --immutable --immutable-cache
 
     - name: Export
-      run: yarn export
+      run: |
+        mkdir ./public/images
+        yarn export
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
