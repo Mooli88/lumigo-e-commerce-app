@@ -36,7 +36,7 @@ export const Products = ({ products }: ProductsProps) => {
     if (productOfPage.length === 0) {
       dispatch(populateProducts(products))
     }
-  }, [])
+  }, [products, productOfPage.length, dispatch])
 
   const handlePageChange = useCallback(
     (page: number) => {
@@ -48,7 +48,8 @@ export const Products = ({ products }: ProductsProps) => {
   )
 
   const isLoading = loading === 'pending'
-  const listToRender = isLoading ? itemsPlaceholder : productOfPage
+  const productList = productOfPage.length === 0 ? products : productOfPage
+  const listToRender = isLoading ? itemsPlaceholder : productList
 
   //NOTE: Demo purposes only. Work when fetching all products
   const totalPages =

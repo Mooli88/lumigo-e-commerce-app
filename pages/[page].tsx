@@ -1,7 +1,7 @@
 import { Product } from 'types/product'
 import { client } from 'app/api'
 import { Products } from 'features/products/Products'
-import type { GetServerSideProps, NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { Sidebar } from 'components/Sidebar'
 import { Cart } from 'features/Cart/Cart'
@@ -30,8 +30,25 @@ const Home: NextPage<HomeProps> = ({ products }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const page = Number(query.page) || 1
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { page: '1' } },
+      { params: { page: '2' } },
+      { params: { page: '3' } },
+      { params: { page: '4' } },
+    ],
+    fallback: false, // can also be true or 'blocking'
+  }
+}
+
+export const getStaticProps: GetStaticProps<
+  { products: Product[] },
+  { page: string }
+> = async (context) => {
+  context.params
+  // const page = Number(query.page) || 1
+  const page = +(context.params?.page ?? 1)
   const limit = page * MAX_ITEMS_PER_PAGE
   const { data: products } = await client<Product[]>('/products', {
     params: { limit: `${limit}` },
