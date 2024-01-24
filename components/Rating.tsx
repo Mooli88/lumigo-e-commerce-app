@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 
 type Props = {
   score: number
@@ -15,7 +15,6 @@ const starsSizeCls = {
 }
 
 const _Rating = ({ score, count, size = 'md', onClick }: Props) => {
-  const nameRef = useRef(`${score}-${Math.random().toFixed(5) + score}`).current
   const roundScore = Math.round(score)
   return (
     <div className='flex items-center relative'>
@@ -32,7 +31,6 @@ const _Rating = ({ score, count, size = 'md', onClick }: Props) => {
           <input
             key={val}
             type='radio'
-            name={`${nameRef}`}
             defaultChecked={roundScore === val}
             disabled
             className='mask mask-star-2 bg-orange-400'

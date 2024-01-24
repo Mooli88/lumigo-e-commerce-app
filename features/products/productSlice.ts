@@ -31,7 +31,6 @@ export const fetchProducts = createAsyncThunk<
     state: RootState
   }
 >('products/fetchProducts', async (limit, { getState, requestId }) => {
-  getState().products.items
   const { currentRequestId, loading } = getState().products
   if (loading !== 'pending' || requestId !== currentRequestId) {
     return getState().products.items

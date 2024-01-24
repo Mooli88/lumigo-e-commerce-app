@@ -59,22 +59,19 @@ export const { setFilterByPrice, setFilterByName, setFilterByRating } =
 
 export const selectFilterSlice = (state: RootState) => state.filter
 
-const selectFilteredProductsByPriceAndRating = (state: RootState) =>
-  state.products.items.filter(
-    ({ price, rating }) =>
-      filterByPrice(price, state.filter.byPrice) &&
-      Math.round(rating.rate) >= state.filter.byRating
+const filterProducts = (filter: FilterState, products: Product[]) => {
+  return products.filter(
+    ({ title, price, rating }) =>
+      title.toLocaleLowerCase().includes(filter.byName) &&
+      filterByPrice(price, filter.byPrice) &&
+      Math.round(rating.rate) >= filter.byRating
   )
-
-const selectFilteredProductsByName = (state: RootState, product: Product[]) =>
-  product.filter(({ title }) =>
-    title.toLocaleLowerCase().includes(state.filter.byName)
-  )
+}
 
 export const selectFilteredProducts = createDraftSafeSelector(
-  (state: RootState) => state,
-  selectFilteredProductsByPriceAndRating,
-  selectFilteredProductsByName
+  [selectFilterSlice, (state: RootState) => state.products.items],
+  filterProducts
 )
+
 
 export default filterSlice.reducer

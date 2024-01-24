@@ -61,38 +61,16 @@ export const Filters = () => {
       </div>
       <div className='divider' />
       <h3 className='font-bold'>Customer Reviews</h3>
-      <div className='flex'>
-        <Rating
-          score={4}
-          size={byRating === 4 ? 'md' : 'sm'}
-          onClick={onFilterByRating}
-        />
-        <span>& Up</span>
-      </div>
-      <div className='flex'>
-        <Rating
-          score={3}
-          size={byRating === 3 ? 'md' : 'sm'}
-          onClick={onFilterByRating}
-        />
-        <span>& Up</span>
-      </div>
-      <div className='flex'>
-        <Rating
-          score={2}
-          size={byRating === 2 ? 'md' : 'sm'}
-          onClick={onFilterByRating}
-        />
-        <span>& Up</span>
-      </div>
-      <div className='flex'>
-        <Rating
-          score={1}
-          size={byRating === 1 ? 'md' : 'sm'}
-          onClick={onFilterByRating}
-        />
-        <span>& Up</span>
-      </div>
+      {[4, 3, 2, 1].map((rating) => (
+        <div className='flex' key={rating}>
+          <Rating
+            score={rating}
+            size={byRating === rating ? 'md' : 'sm'}
+            onClick={onFilterByRating}
+          />
+          <span>& Up</span>
+        </div>
+      ))}
     </div>
   )
 }

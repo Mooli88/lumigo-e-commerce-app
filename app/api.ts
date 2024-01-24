@@ -2,7 +2,8 @@ import getConfig from 'next/config'
 
 const { publicRuntimeConfig } = getConfig()
 const { apiUrl } = publicRuntimeConfig
-type Opts = RequestInit & {
+type Opts = Omit<RequestInit, 'body'> & {
+  body?: unknown
   params?: Record<string, string> | null
 }
 
@@ -21,9 +22,10 @@ export async function client<T>(
     },
   }
 
-  if (body) {
+  if (body && typeof body === 'object') {
     config.body = JSON.stringify(body)
   }
+
   const urlParams = params ? `?${new URLSearchParams(params)}` : ''
   const response = await fetch(`${apiUrl}${endpoint}${urlParams}`, config)
   const data: T = await response.json()
@@ -41,7 +43,7 @@ export async function client<T>(
 
 client.post = function (
   endpoint: string,
-  body: RequestInit['body'],
+  body: unknown,
   customConfig: RequestInit = {}
 ) {
   return client(endpoint, { ...customConfig, body })

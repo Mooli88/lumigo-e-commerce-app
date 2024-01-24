@@ -1,20 +1,20 @@
+import { useAppDispatch, useAppSelector } from 'app/store'
+import { Paginator } from 'components/Paginator'
+import { Product, ProductSkeleton } from 'components/Product'
+import { addToCart } from 'features/Cart/cartSlice'
+import { selectFilteredProducts } from 'features/filters/filterSlice'
+import { useCallback, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Product as ProductType } from 'types/product'
 import { Props } from 'types/propType'
-import { useCallback, useEffect, useState } from 'react'
-import { useAppSelector, useAppDispatch } from 'app/store'
+import { genListFromNum } from 'utils'
 import {
-  fetchProducts,
   MAX_ITEMS_PER_PAGE,
+  fetchProducts,
   populateProducts,
   selectProductCount,
   selectProductSlice,
 } from './productSlice'
-import { genListFromNum } from 'utils'
-import { Paginator } from 'components/Paginator'
-import { selectFilteredProducts } from 'features/filters/filterSlice'
-import { addToCart } from 'features/Cart/cartSlice'
-import { Product, ProductSkeleton } from 'components/Product'
-import { useSelector } from 'react-redux'
 
 type ProductsProps = Props<{ products: ProductType[] }>
 
@@ -25,18 +25,11 @@ export const Products = ({ products }: ProductsProps) => {
   const productItems = useSelector(selectFilteredProducts)
   const productCount = useAppSelector(selectProductCount)
   const dispatch = useAppDispatch()
-  const [productOfPage, setProductOfPage] = useState<ProductType[]>([])
   const { loading } = productsSlice
 
   useEffect(() => {
-    setProductOfPage(productItems)
-  }, [productItems])
-
-  useEffect(() => {
-    if (productOfPage.length === 0) {
-      dispatch(populateProducts(products))
-    }
-  }, [])
+    dispatch(populateProducts(products))
+  }, [dispatch, products])
 
   const handlePageChange = useCallback(
     (page: number) => {
@@ -48,7 +41,7 @@ export const Products = ({ products }: ProductsProps) => {
   )
 
   const isLoading = loading === 'pending'
-  const listToRender = isLoading ? itemsPlaceholder : productOfPage
+  const listToRender = isLoading ? itemsPlaceholder : productItems
 
   //NOTE: Demo purposes only. Work when fetching all products
   const totalPages =
