@@ -12,7 +12,9 @@ import cartReducer, {
   removeFromCart,
 } from '../features/Cart/cartSlice'
 import filterReducer, {
+  setFilterByName,
   setFilterByPrice,
+  setFilterByRating,
 } from '../features/filters/filterSlice'
 
 const { publicRuntimeConfig } = getConfig()
@@ -24,7 +26,13 @@ export const startAppListening =
 export const LOCAL_STORAGE_STATE_KEY = 'lumigo-state'
 
 startAppListening({
-  matcher: isAnyOf(addToCart, removeFromCart, setFilterByPrice),
+  matcher: isAnyOf(
+    addToCart,
+    removeFromCart,
+    setFilterByPrice,
+    setFilterByRating,
+    setFilterByName
+  ),
   effect: async (_, listenerApi) => {
     const { cart, filter } = listenerApi.getState()
 

@@ -19,7 +19,7 @@ function setup(jsx: JSX.Element) {
 
 describe('Searchbox', () => {
   it('renders Searchbox', () => {
-    render(<Searchbox id='tst' onChange={() => null} />)
+    render(<Searchbox onChange={() => null} />)
 
     const searchboxEl = screen.getByRole('searchbox')
 
@@ -29,7 +29,7 @@ describe('Searchbox', () => {
   it('Should call `onChange` with user input', async () => {
     const onChange = jest.fn()
 
-    const { user } = setup(<Searchbox id='tst' onChange={onChange} />)
+    const { user } = setup(<Searchbox onChange={onChange} />)
     const searchboxEl = screen.getByRole('searchbox')
     const inputVal = 'hello world'
 

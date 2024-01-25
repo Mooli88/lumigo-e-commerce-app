@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   createDraftSafeSelector,
   createSlice,
@@ -40,6 +41,11 @@ export const filterSlice = createSlice({
     setFilterByRating: (state: FilterState, action: PayloadAction<number>) => {
       state.byRating = action.payload
     },
+    setFilter: (state: FilterState, action: PayloadAction<FilterState>) => {
+      state.byRating = action.payload.byRating
+      state.byPrice = action.payload.byPrice
+      state.byName = action.payload.byName.toLocaleLowerCase()
+    },
   },
 })
 
@@ -54,8 +60,12 @@ const filterByPrice = (price: number, { value: filter }: FilterByPrice) => {
   }
 }
 
-export const { setFilterByPrice, setFilterByName, setFilterByRating } =
-  filterSlice.actions
+export const {
+  setFilterByPrice,
+  setFilterByName,
+  setFilterByRating,
+  setFilter,
+} = filterSlice.actions
 
 export const selectFilterSlice = (state: RootState) => state.filter
 
@@ -72,6 +82,5 @@ export const selectFilteredProducts = createDraftSafeSelector(
   [selectFilterSlice, (state: RootState) => state.products.items],
   filterProducts
 )
-
 
 export default filterSlice.reducer

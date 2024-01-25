@@ -18,7 +18,7 @@ interface ProductsState {
 
 const initialState: ProductsState = {
   items: [],
-  loading: 'idle',
+  loading: 'pending',
   error: null,
   currentRequestId: '',
 }
@@ -49,6 +49,7 @@ export const productsSlice = createSlice({
       state: ProductsState,
       action: PayloadAction<Product[]>
     ) => {
+      state.loading = 'idle'
       state.items = action.payload
     },
   },

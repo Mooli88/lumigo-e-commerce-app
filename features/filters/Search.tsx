@@ -1,14 +1,14 @@
-import { useAppDispatch } from 'app/store'
+import { useAppDispatch, useAppSelector } from 'app/store'
 import { Searchbox } from 'components/Searchbox'
 import React from 'react'
-import { setFilterByName } from './filterSlice'
-
+import { selectFilterSlice, setFilterByName } from './filterSlice'
 
 export const Search = () => {
+  const { byName: searchTermValue } = useAppSelector(selectFilterSlice)
   const dispatch = useAppDispatch()
   return (
     <Searchbox
-      id='products'
+      defaultValue={searchTermValue}
       onChange={(value) => dispatch(setFilterByName(value))}
     />
   )

@@ -1,13 +1,19 @@
-import { useAppDispatch, useAppSelector } from 'app/store'
+import { RootState, useAppDispatch, useAppSelector } from 'app/store'
 import { RadioBtn } from 'components/RadioBtn'
 import { Rating } from 'components/Rating'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { FilterByPrice } from 'types/filter'
 import {
   selectFilterSlice,
+  setFilter,
   setFilterByPrice,
   setFilterByRating,
 } from './filterSlice'
+import { getFromLocalStorage } from 'utils'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
+const { localStorageStateKey } = publicRuntimeConfig
 
 interface IFilterByPrice extends FilterByPrice {
   label: string
@@ -29,6 +35,18 @@ export const Filters = () => {
   const filterSlice = useAppSelector(selectFilterSlice)
   const dispatch = useAppDispatch()
   const { byPrice, byRating } = filterSlice
+
+  useEffect(() => {
+    const cachedFilters =
+      getFromLocalStorage<RootState>(
+        localStorageStateKey,
+        ({ filter }) => filter
+      ) ?? {}
+
+    if (cachedFilters) {
+      dispatch(setFilter(cachedFilters))
+    }
+  }, [dispatch])
 
   const onFilterByPrice = ({
     target: { id },

@@ -21,9 +21,9 @@ type ProductsProps = Props<{ products: ProductType[] }>
 const itemsPlaceholder = genListFromNum(6, (i) => ({ id: i }))
 
 export const Products = ({ products }: ProductsProps) => {
-  const productsSlice = useAppSelector(selectProductSlice)
+  const productsSlice = useSelector(selectProductSlice)
   const productItems = useSelector(selectFilteredProducts)
-  const productCount = useAppSelector(selectProductCount)
+  const productCount = useSelector(selectProductCount)
   const dispatch = useAppDispatch()
   const { loading } = productsSlice
 
@@ -57,14 +57,12 @@ export const Products = ({ products }: ProductsProps) => {
       <div className='flex flex-wrap justify-center'>
         {listToRender.map((props) => (
           <div className='p-6' key={props.id}>
-            {loading === 'pending' ? (
-              <ProductSkeleton key={props.id} />
-            ) : (
-              <Product
-                {...(props as ProductType)}
-                onAddToCart={() => dispatch(addToCart(props as ProductType))}
-              />
-            )}
+            <Product
+              {...(props as ProductType)}
+              key={props.id}
+              isLoading={loading === 'pending'}
+              onAddToCart={() => dispatch(addToCart(props as ProductType))}
+            />
           </div>
         ))}
       </div>

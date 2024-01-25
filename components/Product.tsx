@@ -5,6 +5,7 @@ import { Rating } from './Rating'
 
 type Props = ProductType & {
   onAddToCart: (id: number) => void
+  isLoading?: boolean
 }
 
 //Shared style
@@ -48,8 +49,11 @@ export const Product = ({
   price,
   rating,
   onAddToCart,
-}: Props) => {
-  return (
+  isLoading,
+}: Props) =>
+  isLoading ? (
+    <ProductSkeleton />
+  ) : (
     <div className={`card w-72 bg-base-100 shadow-xl ${containerStyle}`}>
       <figure className={`relative m-auto w-[90%] ${imgStyle}`}>
         <Image
@@ -78,4 +82,3 @@ export const Product = ({
       </div>
     </div>
   )
-}
