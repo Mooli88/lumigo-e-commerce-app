@@ -1,3 +1,6 @@
+<img width="2052" alt="Screenshot 2024-01-31 at 10 52 30" src="https://github.com/Mooli88/lumigo-e-commerce-app/assets/16106431/9bbcb15b-afa6-4332-bb08-deab43bed042">
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
